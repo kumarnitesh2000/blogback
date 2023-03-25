@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const port = 8080;
+const cors = require('cors');
+app.use(cors());
 const config = {
   mongoURI:"mongodb+srv://johriabhishek123:THTqhtEH8CiJxSLj@cluster0.cjzg9ki.mongodb.net/?retryWrites=true&w=majority",
 };
