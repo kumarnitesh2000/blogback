@@ -7,8 +7,11 @@ const config = {
   mongoURI:"mongodb+srv://johriabhishek123:THTqhtEH8CiJxSLj@cluster0.cjzg9ki.mongodb.net/?retryWrites=true&w=majority",
 };
 const blogs = require("./blog");
+const connect = require("./connect");
+const contact = require("./contact");
+
 let mongoose = require("mongoose");
-connect()
+_connect()
   .then(() => {
     console.info("connected to mongo db");
   })
@@ -16,7 +19,7 @@ connect()
     console.error(`not connected to mongo db due to ${err}`);
   });
 
-function connect() {
+function _connect() {
   return new Promise((resolve, reject) => {
     mongoose
       .connect(config.mongoURI, {
@@ -40,6 +43,16 @@ app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb" }));
 app.use(express.json());
 
+app.get("/api/contact", async (req, res) => {
+  let r = await contact.find({});
+  res.json(r);
+});
+
+app.post("/api/contact", async (req, res) => {
+  await contact.create(req.body);
+  res.json(req.body);
+});
+
 app.get("/api/blogs", async (req, res) => {
   console.log("api/blogs called!");
   let r = await blogs.find({});
@@ -59,6 +72,17 @@ app.put("/api/blog", async (req, res) => {
   })
   res.json(req.body);
 });
+
+app.get("/api/connect", async (req, res) => {
+  let r = await connect.find({});
+  res.json(r);
+});
+
+app.post("/api/connect", async (req, res) => {
+  await connect.create(req.body);
+  res.json(req.body);
+});
+
 
 app.listen(port, () => {
   console.log(`Server listening on the port::${port}`);

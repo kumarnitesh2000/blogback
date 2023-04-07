@@ -67,3 +67,4 @@ exports.default = series(
   parallel(copyReactCodeTask, copyNodeJSCodeTask),
   zippingTask
 );
+//ssh -i "bhad.pem" ubuntu@ec2-52-201-240-21.compute-1.amazonaws.com
